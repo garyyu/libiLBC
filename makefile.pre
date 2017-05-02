@@ -1,0 +1,43 @@
+############################################################################
+## 
+##  makefile.pre
+## 
+############################################################################
+
+SHELL = /bin/bash
+
+ROOT_DIR = .
+
+CFLAGS	= -g -Wall -Wno-unused-function
+CLINK 	= -c -o
+
+	
+CROSS_COMPILE = 
+DIRSUF =  x86-
+ifeq ($(DEBUG_VERSION), 1) 
+  CFLAGS += -g3 -O0
+else
+  CFLAGS += -O2
+endif
+  CFLAGS += 
+  LIB	 =   -lpthread -lm -ldl -Wl
+
+INCLUDE= -I./ 
+
+OBJPATH = $(ROOT_DIR)/$(DIRSUF)obj
+LIBPATH = $(ROOT_DIR)/$(DIRSUF)lib
+APPPATH = $(ROOT_DIR)/$(DIRSUF)bin
+HEADERS =  
+
+SUBOBJS = $(OBJPATH)/SUBOBJS
+
+NM              = $(CROSS_COMPILE)nm  -S
+CC              = $(CROSS_COMPILE)gcc
+CPP             = $(CROSS_COMPILE)g++ -rdynamic
+GCC             = $(CROSS_COMPILE)gcc
+AR              = $(CROSS_COMPILE)ar cqs
+OBJCPY        	= $(CROSS_COMPILE)objcopy
+
+RM              = rm -f 
+MV              = mv -f 
+
