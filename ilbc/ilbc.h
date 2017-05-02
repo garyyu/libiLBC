@@ -150,7 +150,8 @@ ilbc_decode_state_t *ilbc_decode_init(ilbc_decode_state_t *s,   /* (i/o) Decoder
 int ilbc_decode(ilbc_decode_state_t *s,     /* (i/o) the decoder state structure */
                 int16_t amp[],              /* (o) decoded signal block */
                 const uint8_t bytes[],      /* (i) encoded signal bits */
-                int len);
+                int len,
+		int mode);                  /* (i) 0: bad packet, PLC, 1: normal */	//gary.yu
 
 int ilbc_fillin(ilbc_decode_state_t *s,     /* (i/o) the decoder state structure */
                 int16_t amp[],              /* (o) decoded signal block */

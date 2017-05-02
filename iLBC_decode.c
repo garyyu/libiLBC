@@ -524,7 +524,8 @@ static void ilbc_decode_frame(ilbc_decode_state_t *iLBCdec_inst, /* (i/o) the de
 int ilbc_decode(ilbc_decode_state_t *s,     /* (i/o) the decoder state structure */
                 int16_t amp[],              /* (o) decoded signal block */
                 const uint8_t bytes[],      /* (i) encoded signal bits */
-                int len)
+                int len,
+		int mode)                   /* (i) 0: bad packet, PLC, 1: normal */	//gary.yu
 {
     int i;
     int j;
@@ -534,7 +535,7 @@ int ilbc_decode(ilbc_decode_state_t *s,     /* (i/o) the decoder state structure
 
     for (i = 0, j = 0;  j < len;  i += s->blockl, j += s->no_of_bytes)
     {
-        ilbc_decode_frame(s, decblock, bytes + j, 1);
+        ilbc_decode_frame(s, decblock, bytes + j, mode);	//gary.yu
         /* Convert to int16_t */
         for (k = 0;  k < s->blockl;  k++)
         {
