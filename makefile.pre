@@ -8,28 +8,24 @@ SHELL = /bin/bash
 
 ROOT_DIR = .
 
-CFLAGS	= -g -Wall -Wno-unused-function
+DEFS = -DHAVE_CONFIG_H
+COMP_VENDOR_CFLAGS = -DNDEBUG -std=gnu99 -ffast-math -Wall -Wunused-variable -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes
+
+CFLAGS	= $(DEFS) -Wall -Wno-unused-function $(COMP_VENDOR_CFLAGS)
 CLINK 	= -c -o
 
 	
 CROSS_COMPILE = 
-DIRSUF =  x86-
+
 ifeq ($(DEBUG_VERSION), 1) 
   CFLAGS += -g3 -O0
 else
   CFLAGS += -O2
 endif
   CFLAGS += 
-  LIB	 =   -lpthread -lm -ldl -Wl
+  LIB	 =   
 
 INCLUDE= -I./ 
-
-OBJPATH = $(ROOT_DIR)/$(DIRSUF)obj
-LIBPATH = $(ROOT_DIR)/$(DIRSUF)lib
-APPPATH = $(ROOT_DIR)/$(DIRSUF)bin
-HEADERS =  
-
-SUBOBJS = $(OBJPATH)/SUBOBJS
 
 NM              = $(CROSS_COMPILE)nm  -S
 CC              = $(CROSS_COMPILE)gcc

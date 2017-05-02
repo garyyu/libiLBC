@@ -27,42 +27,25 @@ include   makefile.pre
  hpOutput.o  \
  iCBConstruct.o  \
  iCBSearch.o  \
- iLBC.o  \
  iLBC_decode.o  \
  iLBC_encode.o  \
- iLBC_test.o  \
  lsf.o  \
  packing.o  \
  syntFilter.o
 
 
-all:	subdirs  $(EXECUTABLE)
-
-subdirs:
-	@$(RM) $(SUBOBJS)
-	@echo $(CFLAGS)
-	@for onesubdir in $(SUBDIRS) ; do 		\
-	  $(MAKE) -C $$onesubdir -f module.mk; 		\
-	  if test $$? -gt 0; then 			\
-	    build_error=yes; 				\
-	    break; 					\
-	  fi; 						\
-	done;						\
-	if test "$$build_error" = "yes"; then exit 1; else :; fi
+all:	$(EXECUTABLE)
 
 clean: 
 	@echo Build clean, all the object files and binaries are removed successfully.
-	@$(RM) $(OBJPATH)/*.o *~ ./include/*~
-	@$(RM) $(SUBOBJS) 
+	@$(RM) *.o $(OBJPATH)/*.o *~
 
 $(EXECUTABLE):  $(OBJS) 
-			echo -e "-------------------\nnow link the binary\n-------------------"; 	\
-		    	$(GCC) $(CFLAGS) -o $@ $(OBJS) $(shell cat $(SUBOBJS)) $(LIB) -lstdc++ ;	\
-			$(RM) $(SUBOBJS);				\
+	   	$(GCC) $(CFLAGS) -o $@ $(OBJS) $(LIB) -lstdc++ 
 
 
-$(OBJPATH)/%.o:	 %.c $(HEADERS)
+%.o:	 %.c $(HEADERS)
 		@$(RM) $@
 		@echo $(shell pwd)/$<
-		@$(GCC) $(CFLAGS) $(CLINK) $@ $(DPARAM) $(INCLUDE) $<
+		@$(GCC) $(CFLAGS) $(INCLUDE) $(CLINK) $@ $(DPARAM) $(INCLUDE) $<
 
