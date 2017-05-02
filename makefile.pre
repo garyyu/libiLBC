@@ -9,10 +9,10 @@ SHELL = /bin/bash
 ROOT_DIR = .
 
 DEFS = -DHAVE_CONFIG_H
-COMP_VENDOR_CFLAGS = -DNDEBUG -std=gnu99 -ffast-math -Wall -Wunused-variable -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes
+COMP_VENDOR_CFLAGS = -DNDEBUG -std=gnu99 -ffast-math -Wall -Wunused-variable -Wwrite-strings -Wstrict-prototypes -Wmissing-prototypes -fPIC -DPIC 
 
-CFLAGS	= $(DEFS) -Wall -Wno-unused-function $(COMP_VENDOR_CFLAGS)
-CLINK 	= -c -o
+CLINK  = -c -o
+CFLAGS	= $(DEFS) -Wno-unused-function $(COMP_VENDOR_CFLAGS)
 
 	
 CROSS_COMPILE = 
@@ -22,8 +22,9 @@ ifeq ($(DEBUG_VERSION), 1)
 else
   CFLAGS += -O2
 endif
+
   CFLAGS += 
-  LIB	 =   
+  LIBS	 =   -lm 
 
 INCLUDE= -I./ 
 

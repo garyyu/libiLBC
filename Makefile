@@ -6,7 +6,7 @@
 
 include   makefile.pre
 
-	EXECUTABLE = ilbc
+	EXECUTABLE = libilbc.so.0.0.2
 
     	OBJS = \
  FrameClassify.o  \
@@ -41,7 +41,7 @@ clean:
 	@$(RM) *.o $(OBJPATH)/*.o *~
 
 $(EXECUTABLE):  $(OBJS) 
-	   	$(GCC) $(CFLAGS) -o $@ $(OBJS) $(LIB) -lstdc++ 
+		$(GCC) -fPIC -DPIC -shared $(OBJS) $(LIBS) -Wl,-soname -Wl,libilbc.so.0 -o $@
 
 
 %.o:	 %.c $(HEADERS)
